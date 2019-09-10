@@ -1,0 +1,27 @@
+version: '3.1'
+services:
+  react-app:
+    build: ./react-app/
+    volumes:
+      - "./react-app:/app/src/react-app"
+    ports:
+      - "3000:3000"
+    command: "yarn start"
+    depends_on:
+      - express-app
+  express-app:
+    build: ./express-app/
+    volumes:
+      - "./express-app:/app/src/express-app"
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+    restart: always
+    command: "yarn dev"
+  
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: always
