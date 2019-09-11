@@ -1,11 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const cors = require('cors');
 const app = express();
 
 const { mongoose } = require('./database');
 
 // Settings
+app.use(cors());
 app.set('port', process.env.PORT || 3000);
 
 // Middlewares

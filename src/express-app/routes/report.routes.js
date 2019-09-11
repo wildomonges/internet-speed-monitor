@@ -4,7 +4,7 @@ const Report = require('../models/report');
 
 router.get('/', async (req, res) => {
   const reports = await Report.find();
-  res.json(reports);
+  res.json({reports: reports});
 });
 
 router.post('/', async (req, res) => {
