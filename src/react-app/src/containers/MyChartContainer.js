@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
-import MyChart from '../components/MyChart';
 import { isEmpty } from 'lodash';
 
+import { fetchReports } from '../common/api';
+import { chartDataWithHeader, extractChartDataFromResponse } from '../common/utils';
+import { CHART_OPTIONS, CHART_ROOT_PROPS } from '../common/constants';
+
+import MyChart from '../components/MyChart';
+
+/**
+ * MyChart Container
+ */
 class MyChartContainer extends Component {
 
   constructor(props){
@@ -9,37 +17,35 @@ class MyChartContainer extends Component {
     this.state = {data: [], header: ['date', 'ping', 'download', 'upload']};
   }
 
-  componentDidMount = async () => {
-    // TODO: move fetch logic to /common/api.js 
-    const URI = 'http://localhost:3001';
-    const response = await fetch(`${URI}/api/reports`);
-    const { reports } = await response.json();
+  fetchNewReports = async () => {
+    const reports = await fetchReports();
     
     if (!isEmpty(reports)) {
-      const data = reports.map( r => [r['date'], r['ping'], r['upload'], r['download']]);
-      this.setState({data: data});
+      const data = extractChartDataFromResponse(reports);
+      this.setState({data});
     }
+  }
+
+  handleRefreshClick = () => {
+    console.log('entro');
+    this.fetchNewReports();
+  }
+
+  componentDidMount = () => {
+    this.fetchNewReports();
   }
   render(){
     const { header, data } = this.state
-    const chartData = [header].concat(data);
+    const chartData = chartDataWithHeader(header, data);
     
-    const options = {
-      hAxis: {
-        title: 'Time',
-      },
-      vAxis: {
-        title: 'Popularity',
-      },
-      series: {
-        1: { curveType: 'function' },
-      },
-    };
-
-    const rootProps = { 'data-testid': '2' }
 
     return (
-      <MyChart data={chartData} options={options} rootProps={rootProps} />
+      <React.Fragment>
+      <MyChart data={chartData} options={CHART_OPTIONS} rootProps={CHART_ROOT_PROPS} />
+      <button className="btn waves-effect blue waves-light" name="action" onClick={this.handleRefreshClick}>Refresh
+        <i className="material-icons right">autorenew</i>
+      </button>
+      </React.Fragment>
     )
   }
 }

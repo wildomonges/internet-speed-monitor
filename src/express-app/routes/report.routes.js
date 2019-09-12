@@ -3,7 +3,7 @@ const router = express.Router();
 const Report = require('../models/report');
 
 router.get('/', async (req, res) => {
-  const reports = await Report.find();
+  const reports = await Report.find().sort({'date': 'asc'});
   res.json({reports: reports});
 });
 

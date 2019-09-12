@@ -7,7 +7,7 @@ class App extends Component {
       <div>
         <nav>
           <div className="nav-wrapper blue darken-4">
-            <a className="brand-logo center">Speed Monitor</a>
+            <a href="/#" className="brand-logo center">Speed Monitor</a>
           </div>
         </nav>
         <div className="container">
