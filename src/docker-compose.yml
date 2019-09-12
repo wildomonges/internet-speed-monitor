@@ -1,6 +1,7 @@
 version: '3.1'
 services:
   react-app:
+    container_name: 'react-app'
     build: ./react-app/
     volumes:
       - "./react-app:/app/src/react-app"
@@ -10,6 +11,7 @@ services:
     depends_on:
       - express-app
   express-app:
+    container_name: 'express-app'
     build: ./express-app/
     volumes:
       - "./express-app:/app/src/express-app"
@@ -21,6 +23,7 @@ services:
     command: "yarn dev"
   
   db:
+    container_name: 'mongo-db'
     image: mongo
     ports:
       - "27017:27017"
