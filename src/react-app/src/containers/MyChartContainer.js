@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import MyChart from '../components/MyChart'
+import MyChart from '../components/MyChart';
+import { isEmpty } from 'lodash';
 
 class MyChartContainer extends Component {
 
@@ -9,12 +10,13 @@ class MyChartContainer extends Component {
   }
 
   componentDidMount = async () => {
-    const response = await fetch('http://localhost:3001/api/reports');
+    // TODO: move fetch logic to /common/api.js 
+    const URI = 'http://localhost:3001';
+    const response = await fetch(`${URI}/api/reports`);
     const { reports } = await response.json();
-    console.log(reports);
-    if (reports.length > 0) {
+    
+    if (!isEmpty(reports)) {
       const data = reports.map( r => [r['date'], r['ping'], r['upload'], r['download']]);
-      console.log(data);
       this.setState({data: data});
     }
   }
