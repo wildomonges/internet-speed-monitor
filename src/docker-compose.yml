@@ -28,3 +28,10 @@ services:
     ports:
       - "27017:27017"
     restart: always
+    volumes:
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
+
+volumes:
+  mongodb:
+  mongodb_config:
