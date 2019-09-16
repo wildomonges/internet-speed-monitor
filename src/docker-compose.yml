@@ -20,7 +20,7 @@ services:
     depends_on:
       - db
     restart: always
-    command: "yarn dev"
+    command: "yarn start"
   
   db:
     container_name: 'mongo-db'
