@@ -1,7 +1,7 @@
 FROM node:12
-RUN mkdir -p /app/src/react-app
-WORKDIR /app/src/react-app
-COPY . /app/src/react-app/
+WORKDIR /
+COPY package.json .
 RUN yarn
+COPY . .
 EXPOSE 3000
 
