@@ -14,7 +14,7 @@ class MyChartContainer extends Component {
 
   constructor(props){
     super(props);
-    this.state = {data: [], header: ['date', 'ping', 'download', 'upload']};
+    this.state = {data: [], header: ['date', 'ping', 'upload', 'download']};
   }
 
   fetchNewReports = async () => {
@@ -27,7 +27,7 @@ class MyChartContainer extends Component {
   }
 
   handleRefreshClick = () => {
-    console.log('entro');
+    
     this.fetchNewReports();
   }
 

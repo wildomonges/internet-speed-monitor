@@ -5,6 +5,7 @@ services:
     build: ./react-app/
     volumes:
       - "./react-app:/app/src/react-app"
+    working_dir: /app/src/react-app
     ports:
       - "3000:3000"
     command: "yarn start"
@@ -15,6 +16,7 @@ services:
     build: ./express-app/
     volumes:
       - "./express-app:/app/src/express-app"
+    working_dir: /app/src/express-app
     ports:
       - "3001:3000"
     depends_on:
