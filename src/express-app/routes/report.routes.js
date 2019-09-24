@@ -8,12 +8,24 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  const regExp = /^\.*(\d+\.?\d*)$/
   const { date, ping, upload, download } = req.body;
-  const report = new Report({ date, ping, upload, download});
-  await report.save();
-  res.json({
-    status: 'Report saved'
-  });
+  uploadRegExp = upload.match(regExp)
+  downloadRegExpr = download.match(regExp)
+
+  if (uploadRegExp != null && downloadRegExpr != null){
+  	  const report = new Report({ 
+  	  	date: date, 
+  	  	ping: ping, 
+  	  	download: downloadRegExpr[1],
+  	  	upload: uploadRegExp[1], 
+  	  	});
+	  await report.save();
+	  res.json({ status: 'Report saved'});
+  } else {
+  	  res.status(500).send('Validation issue');
+  }
+	  
 });
 
 module.exports = router;
