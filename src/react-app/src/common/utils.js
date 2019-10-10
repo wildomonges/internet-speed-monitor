@@ -9,7 +9,7 @@ const chartDataWithHeader = (header, data) => {
 }
 
 const extractChartDataFromResponse = data => {
-  return data.map( row => [moment(row['date']).format('DD/MM HH:mm'), row['ping'], row['upload'], row['download']]);
+  return data.map(row => [moment(row['date']).format('DD/MM HH:mm'), row['upload'], row['download']]);
 }
 
 export { chartDataWithHeader, extractChartDataFromResponse };

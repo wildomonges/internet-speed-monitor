@@ -18,11 +18,10 @@ app.use(express.json());
 app.use('/api/reports', require('./routes/report.routes'));
 
 // Static files
-const STATIC_FILE_PATH = path.join(__dirname, '..', 'react-app' ,'public')
-console.log(STATIC_FILE_PATH)
+const STATIC_FILE_PATH = path.join(__dirname, '..', 'react-app', 'public')
 app.use(express.static(STATIC_FILE_PATH));
 
 // Starting the server
 app.listen(app.get('port'), () => {
-  console.log(` server running on port ${app.get('port')}`); 
+  console.log(` server running on port ${app.get('port')}`);
 });

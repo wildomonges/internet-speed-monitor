@@ -12,39 +12,37 @@ import MyChart from '../components/MyChart';
  */
 class MyChartContainer extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {data: [], header: ['date', 'ping', 'upload', 'download']};
+    this.state = { data: [], header: ['date', 'upload', 'download'] };
   }
 
   fetchNewReports = async () => {
     const reports = await fetchReports();
-    
+
     if (!isEmpty(reports)) {
       const data = extractChartDataFromResponse(reports);
-      this.setState({data});
+      this.setState({ data });
     }
   }
 
   handleRefreshClick = () => {
-    
     this.fetchNewReports();
   }
 
   componentDidMount = () => {
     this.fetchNewReports();
   }
-  render(){
+  render() {
     const { header, data } = this.state
     const chartData = chartDataWithHeader(header, data);
-    
 
     return (
       <React.Fragment>
-      <MyChart data={chartData} options={CHART_OPTIONS} rootProps={CHART_ROOT_PROPS} />
-      <button className="btn waves-effect blue waves-light" name="action" onClick={this.handleRefreshClick}>Refresh
+        <MyChart data={chartData} options={CHART_OPTIONS} rootProps={CHART_ROOT_PROPS} />
+        <button className="btn waves-effect blue waves-light" name="action" onClick={this.handleRefreshClick}>Refresh
         <i className="material-icons right">autorenew</i>
-      </button>
+        </button>
       </React.Fragment>
     )
   }
